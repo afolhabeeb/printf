@@ -10,38 +10,49 @@
 
 int _printf(const char *format, ...)
 {
-	unsigned int i, count = 0, str_cnt;
+	unsigned int count = 0, len_str = 0;
 	va_list args;
 
+	if (format == NULL)
+		return (-1);
+
 	va_start(args, format);
-
-	for (i = 0; format[i] != '\0'; i++)
+	while (*format)
 	{
-		if (format[i] != '%')
+		if (*format != '%')
 		{
-			putchar_prt(format[i]);
+			write(1, format, 1);
+			count++;
 		}
-		else if (format[i + 1] == 'c')
+		else
 		{
-			putchar_prt(va_arg(args, int));
-			i++;
-		}
-		else if (format[i + 1] == 's')
-		{
-			str_cnt = puts_prt(va_arg(args, char *));
-			i++;
-			count += (str_cnt - 1);
-		}
-		else if (format[i + 1] == '%')
-		{
-			putchar_prt('%');
+			format++;
+			if (*format == '\0')
+				break;
+			if (*format == 'c')
+			{
+				char c = va_arg(args, int);
 
+				write(1, &c, 1);
+				count++;
+			}
+			else if (*format == 's')
+			{
+				char *str = va_arg(args, char*);
+
+				while (str[len_str] != '\0')
+					len_str++;
+				write(1, str, len_str);
+				count += len_str;
+			}
+			else if (*format == '%')
+			{
+				write(1, format, 1);
+				count++;
+			}
 		}
-		count += 1;
-
-
+		format++;
 	}
 	va_end(args);
 	return (count);
-
 }
