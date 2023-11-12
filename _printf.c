@@ -10,7 +10,7 @@
 
 int _printf(const char *format, ...)
 {
-	unsigned int count = 0, len_str = 0;
+	unsigned int count = 0;
 	va_list args;
 
 	if (format == NULL)
@@ -29,7 +29,12 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == '\0')
 				break;
-			if (*format == 'c')
+			if (*format == '%')
+			{
+				write(1, format, 1);
+				count++;
+			}
+			else if(*format == 'c')
 			{
 				char c = va_arg(args, int);
 
@@ -44,11 +49,6 @@ int _printf(const char *format, ...)
 					len_str++;
 				write(1, str, len_str);
 				count += len_str;
-			}
-			else if (*format == '%')
-			{
-				write(1, format, 1);
-				count++;
 			}
 		}
 		format++;
