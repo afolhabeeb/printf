@@ -34,7 +34,7 @@ int _printf(const char *format, ...)
 				write(1, format, 1);
 				count++;
 			}
-			else if(*format == 'c')
+			else if (*format == 'c')
 			{
 				char c = va_arg(args, int);
 
@@ -44,6 +44,7 @@ int _printf(const char *format, ...)
 			else if (*format == 's')
 			{
 				char *str = va_arg(args, char*);
+				int len_str = 0;
 
 				while (str[len_str] != '\0')
 					len_str++;
