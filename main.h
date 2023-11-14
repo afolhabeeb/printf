@@ -102,6 +102,10 @@ int write_unsgnd(int is_negative, int ind, char buffer[],
 		int flags, int width, int precision, int size);
 
 
+int print_reverse(va_list types, char buffer[],
+			int flags, int width, int precision, int size)
+int print_rot13string(va_list types, char buffer[],
+			int flags, int width, int precision, int size)
 int is_printable(char);
 int append_hexa_code(char, char[], int);
 int is_digit(char);
