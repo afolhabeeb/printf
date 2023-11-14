@@ -1,5 +1,7 @@
 *main.c
 a.out
 puts_prt.c
-ext-fil/printf
-ext-fil/_printf.c
+ext-fil/*
+printf
+
+
